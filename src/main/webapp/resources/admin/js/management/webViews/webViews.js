@@ -1,10 +1,11 @@
 window.onload = function () {
 	loadingImageList();
+	uploadFileListDiv = document.getElementById('div-fileUpload').cloneNode(true);
 }
 
 function loadingImageList() {
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url : "pageImageList.mdo",
 		contentType : 'charset=utf-8;',
 		success : function(data) {
@@ -15,41 +16,118 @@ function loadingImageList() {
 		}
 	});
 }
+//----------------------- 페이지 관리 모달창 띄우기 -----------------------
+
+var selectedImageType = null;
+var imageMultiCheck = false;
 
 $(function() {
-    $("#_mainhome").click(function() {
-    	$("#imageModal").modal();
-    	setImage(this.getAttribute("id"), null);
-        return false;
-    })
+	$("#_mainhome").click(function() {
+		selectedImageType = 'PAGEMAIN';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
 })
 $(function() {
-    $("#_seoul").click(function() {
-    	$("#imageModal").modal();
-    	setImage(this.getAttribute("id"), null);
-        return false;
-    })
+	$("#_seoul").click(function() {
+		selectedImageType = 'SEOUL';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
 })
 $(function() {
-    $("#_busan").click(function() {
-    	$("#imageModal").modal();
-    	setImage(this.getAttribute("id"), null);
-        return false;
-    })
+	$("#_busan").click(function() {
+		selectedImageType = 'BUSAN';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
 })
 $(function() {
-    $("#_jeju").click(function() {
-    	$("#imageModal").modal();
-    	setImage(this.getAttribute("id"), null);
-         return false;
-    })
+	$("#_jeju").click(function() {
+		selectedImageType = 'JEJU';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
 })
+$(function() {
+	$("#_sea").click(function() {
+		selectedImageType = '바다 낭만';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
+})
+$(function() {
+	$("#_healing").click(function() {
+		selectedImageType = '도심 속 힐링';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
+})
+$(function() {
+	$("#_glamping").click(function() {
+		selectedImageType = '글렘핑';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
+})
+$(function() {
+	$("#_login").click(function() {
+		selectedImageType = 'LOGIN';
+		modalcontentSet(true);
+		$("#imageModal").modal();
+		setImage(this.getAttribute("id"), null);
+		return false;
+	})
+})
+$(function() {
+	$("#btn-showImage").click(function() {
+		modalcontentSet(false);
+		$("#imageModal").modal();
+	})
+})
+
+function modalcontentSet(val) {
+	var imageDivs = document.getElementsByName('div-pageImage');
+	for(var i = 0; i < imageDivs.length; i++) {
+		imageDivs[i].style.backgroundColor = "transparent";
+	}
+	if(val) {
+		document.getElementById('btn-modal-cancle').style.display = "";
+		document.getElementById('btn-modal-updatePageImage').style.display = "";
+		document.getElementById('btn-modal-delete').style.display = "none";
+		document.getElementById('btn-modal-confirm').style.display = "none";
+		imageMultiCheck = false;
+	} else {
+		document.getElementById('btn-modal-cancle').style.display = "none";
+		document.getElementById('btn-modal-updatePageImage').style.display = "none";
+		document.getElementById('btn-modal-delete').style.display = "";
+		document.getElementById('btn-modal-confirm').style.display = "";
+		imageMultiCheck = true;
+	}
+
+}
+
 function setImage(divId, imageLink) {
 	var imgTagId = 'img' + divId;
 	var imageNode = document.getElementById(imgTagId);
 //	imageNode.setAttribute("src",imageLink);
 };
 
+//페이지 이미지 셋팅
 function setImageList(data) {
 	for(let mapKey in data) {
 		if(data[mapKey].imageType == 'MAINPAGE') {
@@ -64,34 +142,321 @@ function setImageList(data) {
 		if(data[mapKey].imageType == 'JEJU') {
 			document.getElementById('img_jeju').setAttribute("src",data[mapKey].imageLink);
 		}
+		if(data[mapKey].imageType == '바다 낭만') {
+			document.getElementById('img_sea').setAttribute("src",data[mapKey].imageLink);
+		}
+		if(data[mapKey].imageType == '도심 속 힐링') {
+			document.getElementById('img_healing').setAttribute("src",data[mapKey].imageLink);
+		}
+		if(data[mapKey].imageType == '글렘핑') {
+			document.getElementById('img_glamping').setAttribute("src",data[mapKey].imageLink);
+		}
+		if(data[mapKey].imageType == 'LOGIN') {
+			document.getElementById('img_login').setAttribute("src",data[mapKey].imageLink);
+		}
 	}
 	setModalImage(data);
 };
 
-
+//모달창 이미지 셋팅
 function setModalImage(data) {
 	$('#modal-body').empty();
 	var modal_body = document.getElementById("modal-body");
-	
+
 	var div_modalRow = document.createElement("div");
+	div_modalRow.setAttribute("align", "center" );
 	var i = 1;
 	for(let mapKey in data) {
-		
-		var div_modalRow1 = document.createElement("div");
-		div_modalRow1.setAttribute("class", "col-md-4 col-lg-3 mb-4 mb-lg-0");
-		var div_modalRowImage = document.createElement("img");
-		div_modalRowImage.setAttribute("class", "img-fluid");
-		div_modalRowImage.setAttribute("id", "img-" + i );
-		div_modalRowImage.setAttribute("src", data[mapKey].imageLink );
-		div_modalRow1.appendChild(div_modalRowImage);
-		div_modalRow.appendChild(div_modalRow1);
-		if(i % 4 == 0) {
-			modal_body.appendChild(div_modalRow);
-			div_modalRow = document.createElement("div");
-			div_modalRow.setAttribute("class", "row");
-			div_modalRow.setAttribute("style", "width: 100%;");
+		if(data[mapKey].imageType != 'MAINPAGE' && data[mapKey].imageType != 'SEOUL' && data[mapKey].imageType != 'BUSAN' && data[mapKey].imageType != 'JEJU' &&
+				data[mapKey].imageType != '바다 낭만' && data[mapKey].imageType != '도심 속 힐링' && data[mapKey].imageType != '글렘핑' && data[mapKey].imageType != 'LOGIN') {
+			var div_modalRow1 = document.createElement("div");
+			div_modalRow1.setAttribute("class", "col-md-4 col-lg-3 mb-4 mb-lg-0");
+			div_modalRow1.setAttribute("id", "pageImage-" + data[mapKey].imageId);
+			div_modalRow1.setAttribute("name", "div-pageImage");
+			div_modalRow1.setAttribute("onClick", "setFocusToImageDiv(this)");
+			div_modalRow1.setAttribute("style", "width: 200px; height: 150px; margin: 3%; text-align: center;" );
+			var div_modalRowImage = document.createElement("img");
+			div_modalRowImage.setAttribute("class", "img-fluid");
+			div_modalRowImage.setAttribute("id", "img-" + i );
+			div_modalRowImage.setAttribute("style", "position: absolute; top:0; left: 0; width: 90%; height: 90%; margin-left: 5%; margin-top: 4%;" );
+			div_modalRowImage.setAttribute("src", data[mapKey].imageLink );
+			div_modalRowImage.append(data[mapKey].imageLink.slice(data[mapKey].imageLink.lastIndexOf("/")+1).slice(32));
+			div_modalRow1.appendChild(div_modalRowImage);
+			div_modalRow.appendChild(div_modalRow1);
+//			if(i % 4 == 0) {
+//			modal_body.appendChild(div_modalRow);
+//			div_modalRow = document.createElement("div");
+//			div_modalRow.setAttribute("align", "center" );
+//			}
+//			i++;
 		}
-		i++;
+	}
+	modal_body.appendChild(div_modalRow);
+};
+
+//---------------------- 사진 변경 -----------------------
+//사진 클릭 시 포커스
+function setFocusToImageDiv(div) {
+	var imageDivs = document.getElementsByName('div-pageImage');
+	if(imageMultiCheck) {
+		if(div.style.backgroundColor == "rgb(253, 119, 146)")
+			div.style.backgroundColor = "transparent";
+		else
+			div.style.backgroundColor ="rgb(253, 119, 146)";
+	} else {
+		for(var i = 0; i < imageDivs.length; i++) {
+			imageDivs[i].style.backgroundColor = "transparent";
+		}
+		div.style.backgroundColor ="rgb(253, 119, 146)";
+	}
+}
+
+//사진 변경버튼 클릭 이벤트
+$(document).on("click","#btn-modal-updatePageImage",function(event){
+	var imageDivs = document.getElementsByName('div-pageImage');
+	var selectedImageId = null;
+	for(var i = 0; i < imageDivs.length; i++) {
+		if(imageDivs[i].style.backgroundColor == "rgb(253, 119, 146)") {
+			selectedImageId = imageDivs[i].getAttribute("id").split('-')[1];
+		}
+	}
+	if(selectedImageId == null)
+		alert('변경할 사진을 선택해 주세요');
+	else {
+		updatePageImageRequest(selectedImageId);
+	}
+})
+
+//사진 삭제버튼 클릭 이벤트
+$(document).on("click","#btn-modal-delete",function(event){
+	var imageDivs = document.getElementsByName('div-pageImage');
+	var selectedImageId = null;
+	for(var i = 0; i < imageDivs.length; i++) {
+		if(imageDivs[i].style.backgroundColor == "rgb(253, 119, 146)") {
+			selectedImageId = imageDivs[i].getAttribute("id").split('-')[1];
+		}
+	}
+	if(selectedImageId == null)
+		alert('변경할 사진을 선택해 주세요');
+	else {
+		updatePageImageRequest(selectedImageId);
+	}
+})
+
+
+//사진 변경 요청
+function updatePageImageRequest(selectedImageId) {
+	if (confirm("이미지를 교체하시겠습니까?") != true){    //확인
+		return
+	}
+	var sendData = {
+			newImageId : selectedImageId,
+			oldImageType : selectedImageType
+	};
+	$.ajax({
+		type: "POST",
+		url : "changeImage.mdo",
+		dataType : 'json',
+		contentType : 'application/json; charset=utf-8;',
+		data: JSON.stringify(sendData),
+		success : function(data) {
+			selectedImageId = null;
+			alert("사진이 변경 되었습니다.");
+			setImageList(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("error : " + jqXHR.responseText);
+		}
+	});
+}
+
+//사진 삭제 요청
+function updatePageImageRequest(selectedImageId) {
+	if (confirm("정말 삭제하시겠습니까?") != true){    //확인
+		return
 	}
 	
-};
+	var imageDivs = document.getElementsByName('div-pageImage');
+	var arrJson = new Array();
+	
+	for(var i = 0; i < imageDivs.length; i++) {
+		if(imageDivs[i].style.backgroundColor == "rgb(253, 119, 146)") { // 체크된 이미지일 경우
+			var jsonData = {
+				imageId : imageDivs[i].getAttribute("id").split('-')[1]
+			};
+			arrJson.push(jsonData);
+		}
+	}
+	$.ajax({
+		type: "POST",
+		url : "deleteImage.mdo",
+		dataType : 'json',
+		contentType : 'application/json; charset=utf-8;',
+		data: JSON.stringify(arrJson),
+		success : function(data) {
+			alert("사진이 삭제 되었습니다.");
+			setImageList(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("error : " + jqXHR.responseText);
+		}
+	});
+}
+
+//----------------------- 사진 등록 -----------------------
+//사진 업로드 추가 버튼 클릭 이벤트
+
+var saveFileElement = null;
+var uploadFileListDiv = null;
+
+$(document).on("click","#btn-plus",function(event){
+	plusFileDiv();
+	return false;
+})
+
+//사진 업로드 삭제 버튼 클릭 이벤트
+$(document).on("click","#btn-delete",function(event){
+	deleteFileDiv(this);
+	return false;
+})
+
+//업로드 사진 확장자 확인
+$(document).on("change","#select_file",function(event){
+	var flag = checkFileExtension(this);
+	if(!flag) {
+		alert(".png .jpg .gif 확장자만 등록할 수 있습니다.");
+		this.replaceWith(saveFileElement);
+	}
+})
+
+function saveElement(e) {
+	saveFileElement = e.parentElement.firstElementChild.cloneNode(true);
+}
+
+//사진 업로드 div 추가
+function plusFileDiv() {
+	var div_filebox = document.createElement('div');
+	div_filebox.setAttribute("class","filebox");
+	div_filebox.setAttribute("style","margin-left: 2%; margin-bottom: 1%;");
+
+	var input_file = document.createElement('input');
+	input_file.setAttribute("type","file");
+	input_file.setAttribute("id","select_file");
+	input_file.setAttribute("name","select_file");
+	input_file.setAttribute("class","upload-hidden");
+	input_file.setAttribute("accept",".png, .jpg, .gif");
+	input_file.setAttribute("style","display: inline;");
+	input_file.setAttribute("multiple","multiple");
+	input_file.setAttribute("onclick","saveElement(this)");
+
+	var span_file = document.createElement('span');
+	span_file.setAttribute("style","margin-left: 60%;");
+
+	var btn_plus = document.createElement('button');
+	btn_plus.setAttribute("id","btn-plus");
+	var btn_plus_img = document.createElement('img');
+	btn_plus_img.setAttribute("src","resources/admin/images/plus.png");
+
+	var btn_delete = document.createElement('button');
+	btn_delete.setAttribute("id","btn-delete");
+	var btn_delete_img = document.createElement('img');
+	btn_delete_img.setAttribute("src","resources/admin/images/cancle.png");
+
+	btn_plus.appendChild(btn_plus_img);
+	btn_delete.appendChild(btn_delete_img);
+
+	span_file.appendChild(btn_plus);
+	span_file.appendChild(btn_delete);
+
+	div_filebox.appendChild(input_file);
+	div_filebox.appendChild(span_file);
+
+	document.getElementById('div-fileUpload').appendChild(div_filebox);
+}
+
+//사진 업로드 div 삭제
+function deleteFileDiv(btn) {
+	var btn_div = btn.parentElement.parentNode;
+	btn.parentElement.parentNode.parentNode.removeChild(btn_div);
+}
+
+//확장자 검사 (.png .jpg .gif)
+function checkFileExtension(tag_input) {
+	var files = tag_input.parentElement.firstElementChild.files;
+	var fileExtension = null;
+	var file;
+	for (var i = 0; i < files.length; i++) {
+		file = files[i];
+		fileExtension = file.name.slice(file.name.indexOf(".") + 1).toLowerCase();
+		// 확장자 확인
+		if(fileExtension != "jpg" && fileExtension != "gif" && fileExtension != "png") 
+			return false;
+	}
+	return true;
+}
+
+
+//사진 업로드 클릭 이벤트
+$(function() {
+	$("#btn-upload").click(function() {
+		event.preventDefault();
+		var filesInputTags = document.getElementsByName('select_file');
+		var form = new FormData();
+		var index = 1;
+		for(var i = 0; i < filesInputTags.length; i++) {
+			var files = filesInputTags[i].files;
+			if(files == null) {
+				alert("파을을 선택해 주세요.");
+				return;
+			}
+			for(var j = 0; j < files.length; j++) {
+				form.append("file" + index++ , files[j]);
+			}
+		}
+		for (var pair of form.entries()) { 
+			console.log(pair[0]+ ', ' + pair[1].name); 
+		}
+		ImageUploadRequest(form);
+	})
+})
+
+//서버로 사진 업로드 요청
+function ImageUploadRequest(sendData) {
+	$.ajax({
+		type: "POST",
+		enctype: 'multipart/form-data',
+		url : "uploadPageImage.mdo",
+		contentType : false,
+		processData : false,
+		data : sendData,
+		success : function(data) {
+			setImageList(data);
+			alert("사진이 등록되었습니다.");
+			document.getElementById('div-fileUpload').replaceWith(uploadFileListDiv);
+			uploadFileListDiv = document.getElementById('div-fileUpload').cloneNode(true);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("error : " + jqXHR.responseText);
+		}
+	});
+}
+
+//업로드 파일 목록 초기화
+$(function() {
+	$("#btn-reset").click(function() {
+		document.getElementById('div-fileUpload').replaceWith(uploadFileListDiv);
+		uploadFileListDiv = document.getElementById('div-fileUpload').cloneNode(true);
+	})
+})
+
+
+//업로드된 사진 리스트 확인
+$(function() {
+	$("#btn-showImage").click(function() {
+		var files = document.getElementsByName('select_file');
+//		ImageUploadRequest();
+	})
+})
+
+
+//----------------------- ------- -----------------------
