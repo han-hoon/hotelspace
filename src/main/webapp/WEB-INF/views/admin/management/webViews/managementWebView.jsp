@@ -224,13 +224,11 @@
 									class="upload-hidden" accept=".png, .jpg, .gif"
 									style="display: inline;" multiple="multiple"
 									onclick="saveElement(this)"> <span
-									style="margin-left: 60%;">
-									<button id="btn-plus">
+									style="margin-left: 59.75%;">
+									<button id="btn-plus" style="margin-right: 2%;">
 										<img src="resources/admin/images/plus.png">
 									</button>
-									<button disabled="disabled" id="btn-delete">
-										<img src="resources/admin/images/cancle.png">
-									</button>
+									
 								</span>
 
 							</div>
@@ -255,18 +253,18 @@
 			<!-- Modal -->
 			<div class="modal" id="imageModal" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content" style="padding-left: 3%;" align="center">
 						<div class="modal-header">
 							<h4 class="modal-title" id="myModalLabel">등록 사진 목록</h4>
 						</div>
-						<div class="modal-body" id="modal-body">...</div>
+						<div class="modal-body" id="modal-body" align="center">...</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" id="btn-modal-cancle">취소</button>
 							<button type="button" class="btn btn-primary" id="btn-modal-updatePageImage">사진 변경</button>
 							<button type="button" class="btn btn-primary" id="btn-modal-delete">삭제</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-modal-confirm">확인</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="btn-modal-confirm">확인</button>
 						</div>
 					</div>
 				</div>

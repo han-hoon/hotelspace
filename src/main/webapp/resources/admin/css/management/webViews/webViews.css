@@ -5565,7 +5565,7 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    min-width: 500px;
     margin: 1.75rem auto;
   }
 
@@ -5593,12 +5593,12 @@ a.close.disabled {
 @media (min-width: 992px) {
   .modal-lg,
 .modal-xl {
-    max-width: 800px;
+    min-width: 800px;
   }
 }
 @media (min-width: 1200px) {
   .modal-xl {
-    max-width: 1140px;
+    min-width: 1140px;
   }
 }
 .tooltip {
