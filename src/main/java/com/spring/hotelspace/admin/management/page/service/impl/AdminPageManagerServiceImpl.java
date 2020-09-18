@@ -50,7 +50,6 @@ public class AdminPageManagerServiceImpl implements AdminPageManagerService {
 			AdminPageImageVO pageImage = new AdminPageImageVO(null, "NORMAL", file.getSavePath() + file.getFileName());
 			pageImageList.add(pageImage);
 		}
-		System.out.println(pageImageList);
 		return adminPageManagerDAO.uploadPageImage(pageImageList);
 		// 이미지 파일 데이터베이스 등록
 	}

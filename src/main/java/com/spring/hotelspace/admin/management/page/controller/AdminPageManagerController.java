@@ -57,7 +57,7 @@ public class AdminPageManagerController {
 	// 페이지 사진 변경
 	@RequestMapping(value = "changeImage.mdo", method = RequestMethod.POST)
 	public String changePageImage(@RequestBody String jsonParam) throws ParseException  {
-		System.out.println("jsonparam :   "+jsonParam);
+		
 		int result = adminPageManagerService.changePageImage(jsonParam);
 		return "redirect:pageImageList.mdo";
 	}

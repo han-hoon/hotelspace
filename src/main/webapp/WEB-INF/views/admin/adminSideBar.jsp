@@ -11,7 +11,7 @@
 			</h3>
 		</div>
 		<ul class="nav" id="side-menu">
-			<li style="padding: 70px 0 0;"><a href="dashboard.html"
+			<li style="padding: 70px 0 0;"><a href="index.mdo"
 				class="waves-effect"><i class="fa fa-clock-o fa-fw"
 					aria-hidden="true"></i>Dashboard</a></li>
 			<li><a href="profile.html" class="waves-effect"><i
@@ -22,7 +22,7 @@
 					class="fa fa-font fa-fw" aria-hidden="true"></i>페이지 관리</a></li>
 			<li><a href="map-google.html" class="waves-effect"><i
 					class="fa fa-globe fa-fw" aria-hidden="true"></i>Google Map</a></li>
-			<li><a href="blank.html" class="waves-effect"><i
+			<li><a href="hotelManagementList.mdo" class="waves-effect"><i
 					class="fa fa-columns fa-fw" aria-hidden="true"></i>업체(호텔) 관리</a></li>
 			<li><a href="404.html" class="waves-effect"><i
 					class="fa fa-info-circle fa-fw" aria-hidden="true"></i>Error 404</a></li>

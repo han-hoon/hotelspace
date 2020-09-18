@@ -12,6 +12,13 @@
 <title>hotelspace</title>
 <jsp:include page="/WEB-INF/views/admin/headerCssLink.jspf" />
 <jsp:include page="/WEB-INF/views/admin/headerScriptLink.jspf" />
+
+<!-- Custom Theme JavaScript -->
+<!-- main page JavaScript -->
+<script src="resources/admin/vendor/js/custom.min.js"></script>
+<script src="resources/admin/vendor/js/dashboard1.js"></script>
+<script src="resources/admin/vendor/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+
 <script>
     //after window is loaded completely 
     window.onload = function(){

@@ -11,6 +11,7 @@ import java.util.Map;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.hotelspace.client.search.dao.ClientSearchHotelDAOImpl;
 import com.spring.hotelspace.client.search.service.ClientSearchHotelService;
@@ -37,6 +38,7 @@ public class ClientSearchHotelServiceImpl implements ClientSearchHotelService {
 	
 	// 호텔 리스트 검색(hotelList page)
 	@Override
+	@Transactional
 	public HashMap<String, Object> searchHotelToSearchBar(ClientSearchHotelDTO requestDTO) {
 
 		
@@ -72,11 +74,13 @@ public class ClientSearchHotelServiceImpl implements ClientSearchHotelService {
 		hotelMap.put("pageNum", 1);
 		hotelMap.put("pageSize", hoteListPageSize);
 		hotelMap.put("pageBlock", pageBlock);
+		System.out.println("hotelMap : " + hotelMap);
 		return hotelMap;
 	}
 
 	// 호텔 리스트 결과 필터 적용
 	@Override
+	@Transactional
 	public HashMap<String, Object> searchHotelList(ClientHotelFilterDTO hotelFillter, Object hotelSearchMethod) {
 
 		HashMap<Object, Object> map = new HashMap<>();
@@ -148,12 +152,13 @@ public class ClientSearchHotelServiceImpl implements ClientSearchHotelService {
 		hotelMap.put("pageNum", 1);
 		hotelMap.put("pageSize", hoteListPageSize);
 		hotelMap.put("pageBlock", pageBlock);
-		System.out.println(hotelMap);
+		System.out.println("hotelMap : " + hotelMap);
 		return hotelMap;
 	}
 
 	// 호텔리스트 페이지 이동
 	@Override
+	@Transactional
 	public HashMap<String, Object> movePageToHotelList(ClientHotelFilterDTO hotelFillter, Object hotelSearchMethod, String filter) {
 		
 		

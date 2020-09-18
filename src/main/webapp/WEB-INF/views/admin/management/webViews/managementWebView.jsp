@@ -33,7 +33,7 @@
 
 		<!-- page Content -->
 		<section class="page-section portfolio" id="portfolio">
-			<div class="container" style="margin-top: 10%; margin-left: 20%;">
+			<div class="container" style="margin-top: 10%;;">
 				<h2
 					class="page-section-heading text-center text-uppercase text-secondary mb-0">페이지
 					사진 관리</h2>
@@ -205,7 +205,7 @@
 
 			<div style="margin-top: 15%; margin-bottom: 15%;"></div>
 
-			<div class="container" style="margin-top: 10%; margin-left: 20%;">
+			<div class="container" style="margin-top: 10%;">
 				<h2
 					class="page-section-heading text-center text-uppercase text-secondary mb-0">등록
 					사진 관리</h2>
